@@ -7,5 +7,5 @@ edition = "2021"
 
 [dependencies]
 memmap2 = "0.9.0"
-speedy2d = { version = "1.13.3", path = "../Speedy2D", default-features=false, features = ["windowing", "windowing-wayland", "image-loading"] }
-glam = "0.23"
+speedy2d = { version = "2.1", git = "https://github.com/kirinokirino/speedy2d.git", default-features=false, features = ["windowing", "windowing-wayland", "windowing-x11", "image-loading"] }
+glam = "0.25"

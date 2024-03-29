@@ -6,7 +6,7 @@ use speedy2d::{Graphics2D, Window};
 
 use memmap2::Mmap;
 use std::fs::File;
-use std::io::{Read, Write};
+use std::io::Write;
 
 const WIDTH: u16 = 640;
 const HEIGHT: u16 = 480;
@@ -14,14 +14,15 @@ const HEIGHT: u16 = 480;
 fn main() {
     let mut file = File::options()
         .create(true)
+        .truncate(true)
         .read(true)
         .write(true)
         .open("/tmp/imagesink")
         .unwrap();
-    file.write_all(vec![0; usize::from(WIDTH) * usize::from(HEIGHT) * 4].as_slice());
+    let _ = file.write_all(vec![0; usize::from(WIDTH) * usize::from(HEIGHT) * 4].as_slice());
 
     let mmap = unsafe { Mmap::map(&file).unwrap() };
-    mmap.lock();
+    let _ = mmap.lock();
 
     let size = UVec2::new(u32::from(WIDTH), u32::from(HEIGHT));
     let window_size = WindowSize::PhysicalPixels(size);
